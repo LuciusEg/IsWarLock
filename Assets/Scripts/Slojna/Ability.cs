@@ -3,9 +3,16 @@
 public abstract class Ability : ScriptableObject
 {
     public string aName = "New Ability";
-    public Sprite aSprite;
-    public float aBaseCoolDown = 1f;
+    public string aDescription = "default description";
+    public Sprite aIcon;
+    public float aBaseCoolDown;
+
+    //[Space(50)]
+    //[Header("Main characteristics")]
+
 
     public abstract void Initialize(GameObject obj);
     public abstract void TriggerAbility();
+
+    public abstract void BeforeDying();
 }

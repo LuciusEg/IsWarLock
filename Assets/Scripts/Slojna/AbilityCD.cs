@@ -5,47 +5,63 @@ using UnityEngine.UI;
 public class AbilityCD : MonoBehaviour
 {
 
-    public string abilityButtonAxisName = "Fire1";
+    public string abilityButtonKey;
     public Image darkMask;
     public Text coolDownTextDisplay;
 
-    [SerializeField] private Ability ability;
-    [SerializeField] private GameObject weaponHolder;
-    private Image myButtonImage;
-    private AudioSource abilitySource;
-    private float coolDownDuration;
-    private float nextReadyTime;
-    private float coolDownTimeLeft;
+    [SerializeField] private Ability _ability;
+    [SerializeField] private GameObject _weaponHolder;
+    private Image _myButtonImage;
+    //private AudioSource _abilitySource;
+    private float _coolDownDuration;
+    private float _nextReadyTime;
+    private float _coolDownTimeLeft;
+    //private Rigidbody _rBody;
+
+    bool _isButtonTriggered;
 
 
     void Start()
     {
-        Initialize(ability, weaponHolder);
+        Initialize(_ability, _weaponHolder);
     }
 
     public void Initialize(Ability selectedAbility, GameObject weaponHolder)
     {
-        ability = selectedAbility;
-        myButtonImage = GetComponent<Image>();
-        abilitySource = GetComponent<AudioSource>();
-        myButtonImage.sprite = ability.aSprite;
-        darkMask.sprite = ability.aSprite;
-        coolDownDuration = ability.aBaseCoolDown;
-        ability.Initialize(weaponHolder);
+        _ability = selectedAbility;
+        _myButtonImage = GetComponent<Image>();
+        //_abilitySource = GetComponent<AudioSource>();
+        _myButtonImage.sprite = _ability.aIcon;
+        darkMask.sprite = _ability.aIcon;
+        _coolDownDuration = _ability.aBaseCoolDown;
+        _ability.Initialize(_weaponHolder);
         AbilityReady();
     }
 
     // Update is called once per frame
     void Update()
     {
-        bool coolDownComplete = (Time.time > nextReadyTime);
+        bool coolDownComplete = (Time.time >= _nextReadyTime);
         if (coolDownComplete)
         {
             AbilityReady();
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetKeyDown(KeyCode.R))
             {
-                Debug.Log("1");
                 ButtonTriggered();
+            }
+
+            if (_isButtonTriggered)
+            {
+                if (Input.GetMouseButtonDown(0))
+                {
+                    _ability.TriggerAbility();
+                    AbilityTriggered();
+                }
+                if (Input.GetMouseButtonDown(1))
+                {
+                    discardButtonTriggered();
+                    Debug.Log("discarded");
+                }
             }
         }
         else
@@ -62,21 +78,31 @@ public class AbilityCD : MonoBehaviour
 
     private void CoolDown()
     {
-        coolDownTimeLeft -= Time.deltaTime;
-        float roundedCd = Mathf.Round(coolDownTimeLeft);
+        _coolDownTimeLeft -= Time.deltaTime;
+        float roundedCd = Mathf.Round(_coolDownTimeLeft);
         coolDownTextDisplay.text = roundedCd.ToString();
-        darkMask.fillAmount = (coolDownTimeLeft / coolDownDuration);
+        darkMask.fillAmount = (_coolDownTimeLeft / _coolDownDuration);
     }
 
     private void ButtonTriggered()
     {
-        nextReadyTime = coolDownDuration + Time.time;
-        coolDownTimeLeft = coolDownDuration;
-        darkMask.enabled = true;
-        coolDownTextDisplay.enabled = true;
+        _isButtonTriggered = true;
+    }
 
-        //abilitySource.clip = ability.aSound;
-        //abilitySource.Play();
-        ability.TriggerAbility();
+    private void discardButtonTriggered()
+    {
+        _isButtonTriggered = false;
+    }
+
+    private void AbilityTriggered()
+    {
+            _nextReadyTime = _coolDownDuration + Time.time;
+            _coolDownTimeLeft = _coolDownDuration;
+            darkMask.enabled = true;
+            coolDownTextDisplay.enabled = true;
+
+            //abilitySource.clip = ability.aSound;
+            //abilitySource.Play();
+            _isButtonTriggered = false;        
     }
 }

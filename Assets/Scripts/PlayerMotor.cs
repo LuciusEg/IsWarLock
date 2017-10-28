@@ -13,13 +13,7 @@ public class PlayerMotor : MonoBehaviour
     {
         _agent = GetComponent<NavMeshAgent>();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
+    
     public void MoveToPoint(Vector3 point)
     {
         //OnDrawGizmosSelected();

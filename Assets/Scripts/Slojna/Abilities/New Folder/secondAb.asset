@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7588a2599f0d26348b732b5728e66107, type: 3}
+  m_Name: secondAb
+  m_EditorClassIdentifier: 
+  aName: New Ability
+  aDescription: default description
+  aIcon: {fileID: 21300000, guid: a19cebe0599724c469f757f6e0b2d9a4, type: 3}
+  aBaseCoolDown: 10
+  projectileForce: -300
+  projectileLifeTime: 2
+  projectile: {fileID: 54285255008673076, guid: 7010fe8fcdf3acb43b9fa09706578d91,
+    type: 2}
+  projectileRequiresTargeting: 0
+  projectileParticleEffect: {fileID: 0}

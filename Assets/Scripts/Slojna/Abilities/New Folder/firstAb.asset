@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8f9e8cb46bd74646a7de74fa3cdd3ab, type: 3}
+  m_Name: firstAb
+  m_EditorClassIdentifier: 
+  aName: FirstAb
+  aDescription: First ability running forward
+  aIcon: {fileID: 21300000, guid: f9fa59c48bcaf314988f2c2caece74b6, type: 3}
+  aBaseCoolDown: 2
+  projectileForce: 200
+  projectileLifeTime: 3
+  projectile: {fileID: 54285255008673076, guid: 7010fe8fcdf3acb43b9fa09706578d91,
+    type: 2}
+  projectileRequiresTargeting: 0
+  projectileParticleEffect: {fileID: 0}
