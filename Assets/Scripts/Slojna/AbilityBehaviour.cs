@@ -20,8 +20,6 @@ public class AbilityBehaviour : MonoBehaviour
         spawnPoint = GetComponent<Transform>();
     }
 
-
-
     public void Launch()
     {
         _cloneBullet = Instantiate(dAbility, spawnPoint.position, transform.rotation) as Rigidbody;
@@ -31,8 +29,8 @@ public class AbilityBehaviour : MonoBehaviour
         Destroy(_cloneBullet.gameObject, dALifeTime);
 
         // ¯\_(ツ)_/¯¯\_(ツ)_/¯
-        //_deathSign = _cloneBullet.GetComponentInParent<OnDying>();
-
+        _deathSign = _cloneBullet.GetComponentInParent<OnDying>();
+        _deathSign.CurrentOnDeathBulletBehaviour(_cloneBullet);
         //работает дерьмово (убивает другие снаряды)
         //Invoke("ExplodeCloneBullet(_cloneBullet)", dALifeTime);
         //StartCoroutine(ExplodeCloneBullet(_cloneBullet, dALifeTime));
@@ -59,14 +57,14 @@ public class AbilityBehaviour : MonoBehaviour
     {
         //ЧИСТ ВАВАНА СПРАСИТЬ
         //не работает ¯\_(ツ)_/¯
-        //if (_deathSign)
+        //if (_deathSign != null)
         //{
         //работает но ругается ¯\_(ツ)_/¯ ¯\_(ツ)_/¯
-        //if (_deathSign.isDestroyed)
-        //{
-        //    Debug.Log("WAZAP!");
-        //    _deathSign.isDestroyed = false;
-        //}
+        if (_deathSign.isDestroyed)
+        {
+            Debug.Log("WAZAP!");
+            _deathSign.isDestroyed = false;
+        }
         //}
     }
     #endregion
